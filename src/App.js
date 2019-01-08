@@ -1,25 +1,34 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import firebase from "firebase";
+import ContactAdditionForm from "./ContactAdditionForm/ContactAdditionForm";
+import ContactList from "./ContactList/ContactList";
 
 class App extends Component {
+  state = {
+    contacts: []
+  };
+
+  componentDidMount() {
+    firebase
+      .database()
+      .ref("/contacts")
+      .on("value", snapshot => {
+        const value = snapshot.val();
+        const contacts = Object.entries(value || {}).map(([key, val]) => ({
+          id: key,
+          ...val
+        }));
+        this.setState({ contacts });
+      });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>Contacts</h1>
+        <ContactAdditionForm />
+        <ContactList contacts={this.state.contacts} />
       </div>
     );
   }
