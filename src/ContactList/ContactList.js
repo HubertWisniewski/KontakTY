@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import firebase from "firebase";
+import { Button, Icon } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css'
+
 class ContactList extends Component {
   render() {
     return (
@@ -11,7 +14,8 @@ class ContactList extends Component {
             this.props.contacts.map(contact => (
               <li key={contact.id}>
                 {contact.name} {contact.number}
-                <button
+                <Button
+                  icon
                   onClick={() =>
                     firebase
                       .database()
@@ -19,8 +23,8 @@ class ContactList extends Component {
                       .remove()
                   }
                 >
-                  Remove
-                </button>
+                  <Icon name='trash'/>
+                </Button>
               </li>
             ))
           )}

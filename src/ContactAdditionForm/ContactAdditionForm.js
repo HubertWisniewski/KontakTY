@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import firebase from "firebase";
+import { Input } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css'
 
 class ContactAdditionForm extends Component {
   state = {
@@ -54,21 +57,21 @@ class ContactAdditionForm extends Component {
       <div className="App">
         <form onSubmit={this.handleSubmit}>
           {this.state.error && <p>{this.state.error.message}</p>}
-          <input
+          <Input
             type="text"
             value={this.state.ContactName}
             onChange={this.handleChange}
             placeholder="Name"
             name="ContactName"
           />
-          <input
+          <Input
             type="text"
             value={this.state.ContactNumber}
             onChange={this.handleChange}
             placeholder="Number"
             name="ContactNumber"
           />
-          <button type="submit">Done</button>
+          <Button>Done</Button>
         </form>
       </div>
     );
