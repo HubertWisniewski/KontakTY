@@ -9,7 +9,7 @@ class ContactList extends Component {
       <div className="App">
         <ul style={{ listStyleType: "none" }}>
           {this.props.contacts.length === 0 ? (
-            <p>There are no contacts</p>
+            <p>Siemandero eloelo</p>
           ) : (
             this.props.contacts.map(contact => (
               <li key={contact.id}>
