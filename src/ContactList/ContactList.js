@@ -7,12 +7,14 @@ import { getContactsAsArray } from "../selectors";
 
 class ContactList extends Component {
   render() {
+
+    console.log(this.props)
     const { contacts } = this.props
     return (
       <div className="App">
         <ul style={{ listStyleType: "none" }}>
           {contacts.length === 0 ? (
-            <p>Siemandero eloelo</p>
+            <p>There are no contacts</p>
           ) : (
             contacts.map(contact => (
               <li key={contact.id}>

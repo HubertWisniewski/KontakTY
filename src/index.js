@@ -6,9 +6,12 @@ import setupFirebase from "./setupFirebase";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import store from "./store";
+import { store, initializeData } from "./store";
 
 firebase.initializeApp(setupFirebase);
+
+initializeData()
+
 
 ReactDOM.render(
   <Provider store={store}>

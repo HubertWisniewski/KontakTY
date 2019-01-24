@@ -1,27 +1,38 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from "redux";
+import { readContactsFromApi } from "./services/contacts";
+import thunk from "redux-thunk";
 
 const initialState = {
-    data: {
-        abc: {
-          name: 'Janusz',
-          number: 123000421,
-        },
-        def: {
-          name: 'Andrzej',
-          number: 1231241,
-        },
-      },
+  data: null
+};
+
+const setContacts = data => ({
+  type: "SET",
+  data
+});
+
+const readContacts = () => dispatch => {
+  readContactsFromApi().then(data => dispatch(setContacts(data)));
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "SET":
+      return {
+        ...state,
+        data: action.data
+      };
+    default:
+      return state;
+  }
+};
+
+export const store = createStore(reducer, applyMiddleware(thunk));
+
+
+
+export const initializeData = () => {
+    store.dispatch(readContacts());
 }
 
 
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-      default:
-        return state
-    }
-  }
-
-
-  const store = createStore(reducer)
-
-  export default store
