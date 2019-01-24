@@ -1,17 +1,20 @@
 import React, { Component } from "react";
 import firebase from "firebase";
+import { connect } from 'react-redux'
 import { Button, Icon } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
+import { getContactsAsArray } from "../selectors";
 
 class ContactList extends Component {
   render() {
+    const { contacts } = this.props
     return (
       <div className="App">
         <ul style={{ listStyleType: "none" }}>
-          {this.props.contacts.length === 0 ? (
+          {contacts.length === 0 ? (
             <p>Siemandero eloelo</p>
           ) : (
-            this.props.contacts.map(contact => (
+            contacts.map(contact => (
               <li key={contact.id}>
                 {contact.name} {contact.number}
                 <Button
@@ -34,4 +37,6 @@ class ContactList extends Component {
   }
 }
 
-export default ContactList;
+export default connect(state => ({
+  contacts: getContactsAsArray(state)
+})) (ContactList);
